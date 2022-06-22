@@ -1,12 +1,10 @@
 import random
 import string
 
-symbols = []
-numbers = []
-letters = []
+symbols, numbers, letters = [], [], []
 symbols[:0] = string.punctuation
 letters[:0] = string.ascii_lowercase + string.ascii_uppercase
-numbers = list(map(lambda x: str(x), list(range(0, 10))))
+numbers = [str(x) for x in range(10)]
 
 
 def define_num(question=''):
@@ -15,7 +13,7 @@ def define_num(question=''):
         try:
             num = int(input(question))
         except ValueError:
-            print('Invalid input. Int is requiered.')
+            print('Invalid input. Int is required.')
 
     return num
 
@@ -25,20 +23,18 @@ def get_num_char(char_list, num):
         pwd_list.append(random.choice(char_list))
 
 
-num_letters = define_num('How many letters you want in your password: ')
-num_numbers = define_num('How many numbers you want in your password: ')
-num_symbols = define_num('How many symbols you want in your password: ')
+num_letters = define_num('How many letters do you want in your password: ')
+num_numbers = define_num('How many numbers do you want in your password: ')
+num_symbols = define_num('How many punctuation symbols do you want in your password: ')
 
 pwd_list = []
 get_num_char(letters, num_letters)
 get_num_char(numbers, num_numbers)
 get_num_char(symbols, num_symbols)
 
-password = ""
 if pwd_list:
     random.shuffle(pwd_list)
-    for char in pwd_list:
-        password += char
-    print(f'Your generated password is: {password}\nThe length is: {len(password)}')
+    password = ''.join(pwd_list)
+    print(f'Your generated password is: {password}\nwith length is: {len(password)}')
 else:
     print("There is nothing to generate.")
